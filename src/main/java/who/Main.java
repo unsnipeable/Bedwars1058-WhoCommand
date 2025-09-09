@@ -17,6 +17,7 @@ public class Main extends JavaPlugin {
     public static BedWars bw;
     public static final String PATH = "addons.who.";
     public static final String WHO_MESSAGE = PATH + "who-message-prefix";
+    public static final String ERROR_MESSAGE = PATH + "error-message";
 
     @Override
     public void onEnable() {
@@ -38,6 +39,9 @@ public class Main extends JavaPlugin {
             if (!l.exists(WHO_MESSAGE)) {
                 l.set(WHO_MESSAGE, "&b&lONLINE: ");
             }
+            if (!l.exists(ERROR_MESSAGE)) {
+                l.set(ERROR_MESSAGE, "&cYou are not playing");
+            }
         }
         this.getCommand("who").setExecutor(new WhoCommand());
     }
@@ -45,7 +49,11 @@ public class Main extends JavaPlugin {
     static class WhoCommand implements CommandExecutor {
         @Override
         public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
-            commandSender.sendMessage(Language.getMsg((Player)commandSender, WHO_MESSAGE) + Main.bw.getArenaUtil().getArenaByPlayer((Player)commandSender).getPlayers().stream().map(Player::getName).collect(Collectors.joining(", ")));
+            if (Main.bw.getArenaUtil().getArenaByPlayer((Player)commandSender) != null) {
+                commandSender.sendMessage(Language.getMsg((Player)commandSender, ERROR_MESSAGE));
+                return false;
+            }
+            commandSender.sendMessage(Language.getMsg((Player)commandSender, WHO_MESSAGE) + "§6" + Main.bw.getArenaUtil().getArenaByPlayer((Player)commandSender).getPlayers().stream().map(Player::getName).collect(Collectors.joining("§7, §6")));
             return true;
         }
     }
