@@ -1,0 +1,9 @@
+name: Bedwars1058-WhoCommand
+api-version: '1.8'
+version: ${project.version}
+author: matanku
+description: /who
+main: who.Main
+depend: [BedWars1058]
+commands:
+  who:
