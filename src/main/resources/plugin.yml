@@ -1,6 +1,6 @@
 name: Bedwars1058-WhoCommand
 api-version: '1.8'
-version: ${project.version}
+version: 1.1
 author: matanku
 description: /who
 main: who.Main

@@ -49,7 +49,7 @@ public class Main extends JavaPlugin {
     static class WhoCommand implements CommandExecutor {
         @Override
         public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
-            if (Main.bw.getArenaUtil().getArenaByPlayer((Player)commandSender) != null) {
+            if (Main.bw.getArenaUtil().getArenaByPlayer((Player)commandSender) == null) {
                 commandSender.sendMessage(Language.getMsg((Player)commandSender, ERROR_MESSAGE));
                 return false;
             }
